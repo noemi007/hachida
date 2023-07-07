@@ -1,0 +1,679 @@
+@charset "utf-8";
+
+html {
+    font-size: 100%;
+}
+
+body {
+  font-family: "Helvetica Neue"、"Arial"、"Noto Serif JP"、serif;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+.sec-title {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+}
+
+li {
+    list-style: none;
+    margin-left: 30px;
+}
+
+li a {
+  font-size: 16px;
+  line-height: 1rem;
+  color: #333;
+}
+
+img {
+    max-width: 100%;
+}
+
+.wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* ****************
+ローディング
+**************** */
+
+/* Loading背景画面設定　*/
+#splash {
+  /*fixedで全面に固定*/
+position: fixed;
+width: 100%;
+height: 100%;
+z-index: 999;
+background: #000080;
+text-align:center;
+color:#fff;
+}
+
+/* Loading画像中央配置　*/
+#splash_logo {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+}
+
+/* Loading アイコンの大きさ設定　*/
+#splash_logo img {
+width:260px;
+}
+
+/* fadeUpをするアイコンの動き */
+
+.fadeUp{
+animation-name: fadeUpAnime;
+animation-duration:0.5s;
+animation-fill-mode:forwards;
+opacity: 0;
+}
+
+@keyframes fadeUpAnime{
+from {
+  opacity: 0;
+transform: translateY(100px);
+}
+
+to {
+  opacity: 1;
+transform: translateY(0);
+}
+}
+
+/* ****************
+上下にbgが割れる画面遷移
+**************** */
+
+
+body{
+  background:#000080;/*遷移アニメーションと同じ色を指定*/
+}
+
+body.appear{
+  background:#fff;/*画面を開いた後の背景色を指定*/
+}
+
+/*画面遷移アニメーション*/
+.splashbg1,
+.splashbg2{
+  display: none;
+}
+
+/*bodyにappearクラスがついたら出現*/
+body.appear .splashbg1,
+body.appear .splashbg2{
+display:block;
+}
+
+/*上に消えるエリア*/
+body.appear .splashbg1{
+animation-name:PageAnime;
+animation-duration:1.4s;
+animation-timing-function:ease-in-out;
+animation-fill-mode:forwards;
+  content: "";
+  position:fixed;
+  z-index: 999;
+  width: 100%;
+  height: 100vh;
+  bottom:50%;
+  left:0;
+  transform: scaleY(1);
+  background-color: #000080;/*伸びる背景色の設定*/
+}
+
+@keyframes PageAnime{
+0% {
+  transform-origin:top;
+  transform:scaleY(1);
+}
+
+100% {
+  transform-origin:top;
+  transform:scaleY(0);
+}
+}
+
+/*下に消えるエリア*/
+body.appear .splashbg2{
+  animation-name:PageAnime2;
+  animation-duration:1.4s;
+  animation-timing-function:ease-in-out;
+  animation-fill-mode:forwards;
+  content: "";
+  position:fixed;
+  z-index: 999;
+  width: 100%;
+  height: 100vh;
+  top: 50%;
+  left:0;
+  transform: scaleY(1);
+  background-color: #000080;/*伸びる背景色の設定*/
+}
+
+@keyframes PageAnime2{
+0% {
+  transform-origin:bottom;
+  transform:scaleY(1);
+}
+100% {
+  transform-origin:bottom;
+  transform:scaleY(0);
+}
+}
+
+/*画面遷移の後現れるコンテンツ設定*/
+#container{
+opacity: 0;/*はじめは透過0に*/
+}
+
+/*bodyにappearクラスがついたら出現*/
+body.appear #container{
+animation-name:PageAnimeAppear;
+animation-duration:1s;
+animation-delay:0.2s;
+animation-fill-mode:forwards;
+opacity: 0;
+}
+
+@keyframes PageAnimeAppear{
+0% {
+opacity: 0;
+}
+100% {
+opacity: 1;
+}
+}
+
+
+
+/* ****************
+header
+**************** */
+header {
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#nav-pc {
+ flex-basis: 33.3%;
+}
+
+.menu-btn {
+  display: none;
+}
+
+header .logo {
+  height: auto;
+  margin: 0 auto;
+  flex-basis: 33.3%;
+  position: relative;
+}
+
+header .logo img {
+  width: 250px;
+  height: 100%;
+  /* object-fit: cover; */
+  margin: 0 auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+header nav ul {
+  display: flex;
+  height: 70px;
+  align-items: center;
+}
+
+#nav-sp {
+  transform:  translateY(-100%);
+  transition: all 0.6s;
+  display: none;
+}
+
+.menu-btn {
+  display: none;
+}
+
+.contact-box {
+  flex-basis: 33.3%;
+  text-align: center;
+}
+
+header .contact {
+  display: inline-block;
+  color: #fff;
+  font-size: 16px;
+  width: 150px;
+  height: 70px;
+  background-color: #000080;
+  text-align: center;
+  line-height: 70px;
+  position: absolute;
+  right: 0;
+}
+
+/* ****************
+mainvisual
+**************** */
+#mainvisual {
+  background-color: #faf8f8;
+  width: 100%;
+  /* height: calc(100vh - 70px); */
+  padding: 5% 0 2% 0;
+  position: relative;
+}
+
+.main-img {
+  width: 80%;
+  /* height: 65%; */
+  height: calc(100vh - 70px);
+}
+
+.concept-en {
+  font-size: 3.8rem;
+  font-family: 'Dancing Script', cursive;
+  color: #000080;
+  position: absolute;
+  right: 7%;
+  top: 110px;
+}
+
+.concept-ja {
+  writing-mode: vertical-rl; 
+  -ms-writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+  -webkit-writing-mode: vertical-rl;  /* Chrome、Safari用 */
+  -moz-writing-mode: vertical-rl;     /* Firefox用 */
+  -ms-writing-mode: tb-rl;            /* IE用 */
+  font-size: 1.9rem;
+  line-height: 1.6;
+  position: absolute;
+  right: 5%;
+  bottom: 7%;
+}
+
+.news {
+  width: 45%;
+  height: auto;
+  padding: 2%;
+  position: absolute;
+  bottom: 0;
+  background-color: #fff;
+}
+
+.news ul li {
+  border-bottom: 1px dotted #909090;
+  padding: 16px 0;
+}
+
+.news ul li:first-child {
+  border-top: 1px dotted #909090;
+}
+
+.news ul li a {
+  font-size: 14px;
+}
+
+.news ul li time {
+  margin-right: 16px;
+}
+
+/* ****************
+service
+**************** */
+#service {
+  padding: 80px 0;
+  height: 1000px;
+  position: relative;
+}
+
+#service .blue-bg {
+  background-color: #000080;
+  width: 90%;
+  height: auto;
+}
+
+#service .service-text {
+  color: #fff;
+  text-align: center;
+  padding: 36px 0 120px 0;
+}
+
+.service-container {
+  width: 65%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 6% 3%;
+  position: absolute;
+  left: 12%;
+}
+
+.service-item {
+  width: 30%;
+  height: 180px;
+  border: 1px solid #909090;
+  margin-top: 40px;
+  position: relative;
+}
+
+.service-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.8);
+}
+
+.item-text {
+  width: 70%;
+  height: 50px;
+  background-color: #fff;
+  margin: 0 auto;
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.item-text > P {
+  color: #08083b;
+  text-align: center;
+  line-height: 50px;
+}
+
+/* ****************
+company profile
+**************** */
+.co-profile-en {
+  font-size: 3.8rem;
+  font-family: 'Dancing Script', cursive;
+  color: #000080;
+  text-align: center;
+}
+
+.co-profile-container {
+  display: flex;
+}
+
+.co-profile-message {
+  width: 40%;
+  height: 350px;
+  writing-mode: vertical-rl; 
+  -ms-writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+  -webkit-writing-mode: vertical-rl;  /* Chrome、Safari用 */
+  -moz-writing-mode: vertical-rl;     /* Firefox用 */
+  -ms-writing-mode: tb-rl;            /* IE用 */
+  line-height: 3;
+}
+
+.co-btn {
+  width: 50px;
+  height: 200px;
+  writing-mode: vertical-rl; 
+  -ms-writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+  -webkit-writing-mode: vertical-rl;  /* Chrome、Safari用 */
+  -moz-writing-mode: vertical-rl;     /* Firefox用 */
+  -ms-writing-mode: tb-rl;            /* IE用 */
+  border: 1px solid #777;
+  text-align: center;
+  line-height: 50px;
+  margin-left: 170px;
+}
+
+.co-profile-img {
+  width: 55%;
+  height: 350px;
+}
+
+.co-profile-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ****************
+history
+**************** */
+#history {
+  margin: 80px 0;
+}
+.history-en {
+  font-size: 3.8rem;
+  font-family: 'Dancing Script', cursive;
+  color: #000080;
+  text-align: center;
+}
+
+.history-container {
+  display: flex;
+}
+
+.history-pic {
+  width: 50%;
+  height: 500px;
+}
+
+.history-pic img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+
+/* ****************
+ timeline
+**************** */
+/*タイムライン全体の設定*/
+.timeline{
+	max-width: 400px;
+	width:100%;
+	margin:50px auto;
+	padding:0 30px;
+}
+
+.timeline li{
+    /*線の起点とするためrelativeを設定*/
+    position: relative;
+	list-style: none;
+	padding:0 0 20px 0;
+}
+
+.timeline dl{
+	margin:0 0 20px 3em;
+}
+
+.timeline dd strong{
+	display: block;
+	padding:10px 0;
+}
+
+/*絶対配置で線を設定*/
+.border-line {
+    /*線の位置*/
+	position: absolute;
+	left:0.2em;
+	top:0;
+	width:2px;/*線の太さ*/
+	height:0;/*はじめは高さを0に*/
+	background: #ccc;
+}
+
+/*タイムラインの見出し横の丸の位置と形状*/
+.timeline li::after{
+	content:'';
+	position: absolute;
+	top:0;
+	left:0;
+	width:10px;
+	height: 10px;
+	background:#666;
+	border-radius: 50%;
+}
+
+/* <!-- TOPに戻るボタン --> */
+#page-top {
+  position: fixed;
+  right: 20px;
+  bottom: 50px;
+}
+
+#page-top i {
+  font-size: 56px;
+}
+
+/* ****************
+ map
+**************** */
+#map {
+  width: 100%;
+  height: auto;
+  padding-top: 80px;
+}
+
+.map-inner {
+  display: flex;
+  justify-content: space-between;
+}
+
+.company-info h2 {
+  font-size: 2rem;
+  color:#000080;
+}
+
+/* ****************
+ footer
+**************** */
+
+footer {
+  height: 3rem;
+  background-color: #000080;
+  margin-top: 56px;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  line-height: 3rem;
+}
+
+footer ul {
+  display: flex;
+}
+
+footer ul li a {
+  color: #fff;
+}
+
+.copyright {
+  color: #fff;
+  text-align: center;
+}
+
+/* ******************************************* */
+@media screen and (max-width:600px) {
+  #nav-pc {
+    display: none;
+  }
+
+  #mainvisual {
+    width: 100%;
+    height: calc(100vh - 70px);
+    padding: 5% 10% 2% 0;
+  }
+  
+  .main-img {
+    width:  83%;
+    height: 100vh;
+    margin-right: 20%;
+  }
+
+  #mainvisual {
+    position: initial;
+    height: auto;
+  }
+
+  .news {
+    width: 100vw;
+    height: auto;
+    margin-bottom: 56px;
+ 
+ 
+    position: absolute;
+    bottom: -25%;
+    background-color: #fff;
+  }
+
+  #service {
+    margin: 70px 0;
+    padding-top: 100px;
+    height: 2000px;
+  }
+
+  .service-container {
+    flex-direction: column;
+  }
+
+  .service-item {
+    width: 100%;
+  }
+
+  .co-profile-container {
+    flex-direction: column;
+  }
+
+  .co-profile-message {
+    writing-mode: horizontal-tb;
+    line-height: 1.6;
+    width: 56%;
+    height: 200px;
+    margin: 50px auto;
+    order: 2;
+  }
+
+  .co-btn {
+    writing-mode: horizontal-tb;
+    width: 200px;
+    height: 50px;
+    margin: 0 auto;
+    order: 3;
+  }
+
+  .co-profile-img {
+    order: 1;
+    width: 100%;
+  }
+
+  #history {
+    margin: 20px 0;
+  }
+
+  .history-container {
+    flex-direction: column;
+  }
+
+  .history-pic {
+    width: 100%;
+  }
+
+  .map-inner {
+    flex-direction: column;
+  }
+}
+
+
+
